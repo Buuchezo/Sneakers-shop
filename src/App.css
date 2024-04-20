@@ -187,14 +187,8 @@ li {
 .LeftArrow:hover {
   filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
     brightness(189%) contrast(185%);
-  animation: resize 200ms ease-in-out;
-  cursor: pointer;
-}
 
-@keyframes resize {
-  50% {
-    scale: 1.2 0.8;
-  }
+  cursor: pointer;
 }
 
 .LeftArrow {
@@ -441,6 +435,10 @@ input[type="text"] {
 }
 
 .desktop_version {
+  display: none;
+}
+
+.modal_container {
   display: none;
 }
 

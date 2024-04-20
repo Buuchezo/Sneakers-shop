@@ -697,7 +697,7 @@ input[type="text"] {
 
   .modal_content {
     position: relative;
-    width: 600px;
+    width: 400px;
     border-radius: 20px;
   }
 }
@@ -705,6 +705,11 @@ input[type="text"] {
 @media screen and (min-width: 1080px) {
   .app {
     width: 1080px;
+  }
+  .modal_content {
+    position: relative;
+    width: 600px;
+    border-radius: 20px;
   }
 
   .navbar {

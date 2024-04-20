@@ -27,53 +27,20 @@ strong {
   font-size: 1.6rem;
   margin-left: 0.5rem;
 }
+
 .minusbtn {
   background: none;
   outline: none;
   border: none;
 }
 
-.scrolls {
-  position: absolute;
-  top: 18rem;
-  left: 1.4rem;
-}
-
 .main_component {
   position: relative;
 }
 
-#scroll_left {
-  position: relative;
-  width: 15px;
-  height: 15px;
-  background-color: rgb(255, 255, 255);
-  padding: 1.5rem;
-  border-radius: 50px;
-}
-#scroll_right {
-  position: relative;
-  width: 15px;
-  height: 15px;
-  background-color: rgb(255, 255, 255);
-  padding: 1.5rem;
-  border-radius: 50px;
-  left: 25.5rem;
-}
-
-#scroll_right:hover {
-  filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
-    brightness(189%) contrast(185%);
-  cursor: pointer;
-}
-#scroll_left:hover {
-  filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
-    brightness(189%) contrast(185%);
-  cursor: pointer;
-}
-.logos {
+/* .logos {
   padding-left: 1.2rem;
-}
+} */
 
 .links img {
   width: 15px;
@@ -86,8 +53,8 @@ strong {
   background-color: white;
   display: flex;
   flex-direction: column;
-  width: 250px;
-  height: 140%;
+  width: 27rem;
+  height: 100%;
   left: -25rem;
   top: -2rem;
   z-index: 1000;
@@ -108,7 +75,7 @@ li {
   list-style: none;
   text-align: left;
   padding-top: 2rem;
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
 }
 
@@ -160,6 +127,7 @@ li {
 .cart {
   position: relative;
   display: flex;
+  margin-left: 5rem;
 }
 
 .cart_counter {
@@ -188,7 +156,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: left;
-  margin-right: 2rem;
+  /* margin-right: 2rem; */
 }
 
 .menu_logo {
@@ -203,9 +171,63 @@ li {
   position: relative;
 }
 
+.RightArrow,
+.LeftArrow {
+  position: absolute;
+  top: 46%;
+  width: 2rem;
+  height: 2rem;
+  background-color: rgb(255, 255, 255);
+  padding: 1rem;
+  border-radius: 50px;
+  z-index: 20;
+}
+
+.RightArrow:hover,
+.LeftArrow:hover {
+  filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
+    brightness(189%) contrast(185%);
+  animation: resize 200ms ease-in-out;
+  cursor: pointer;
+}
+
+@keyframes resize {
+  50% {
+    scale: 1.2 0.8;
+  }
+}
+
+.LeftArrow {
+  transform: translate(0, -50%);
+  left: 15px;
+}
+.RightArrow {
+  transform: translate(0, -50%);
+  right: 15px;
+}
+
 .main_image img {
   width: 100%;
-  height: auto;
+  height: 100%;
+}
+
+.image_slider {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.slider_image {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  display: block;
+  flex-shrink: 0;
+  flex-grow: 0;
+  transition: translate 500ms ease-in-out;
+  cursor: pointer;
 }
 .description {
   display: flex;
@@ -424,7 +446,7 @@ input[type="text"] {
 
 @media screen and (min-width: 600px) {
   .app {
-    width: 600px;
+    width: 100%;
   }
 
   .cart {
@@ -467,23 +489,42 @@ input[type="text"] {
 
 @media screen and (min-width: 720px) {
   h1 {
-    font-size: 4rem;
-    margin: 1rem;
+    font-size: 2.7rem;
+    margin: 0.5rem 1rem;
   }
 
   h2 {
-    font-size: 2rem;
+    font-size: 1.5rem;
     margin: 1rem;
   }
 
   p {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     margin: 1rem;
     line-height: 1.5;
   }
   strong {
     font-size: 1.6rem;
     margin-left: 0.5rem;
+  }
+  .main_image_container {
+    flex-basis: 70%;
+  }
+  .RightArrow,
+  .LeftArrow {
+    display: none;
+  }
+
+  .modal_content .RightArrow,
+  .modal_content .LeftArrow {
+    display: block;
+  }
+
+  .modal_content .RightArrow {
+    right: -2rem;
+  }
+  .modal_content .LeftArrow {
+    left: -2rem;
   }
 
   .desktop_version {
@@ -495,33 +536,30 @@ input[type="text"] {
     display: none;
   }
 
-  /* .app {
-    padding-top: 8rem;
-    width: 1080px;
-    display: flex;
-    flex-direction: row;
-    gap: 80px;
-  } */
+  .app {
+    width: 720px;
+  }
   .desktop_partition {
     padding-top: 8rem;
-    width: 1080px;
+
     display: flex;
     flex-direction: row;
-    gap: 80px;
   }
 
   .navbar {
+    width: 100%;
     display: flex;
     padding-bottom: 0;
     justify-content: space-between;
     border-bottom: 0.5px solid gray;
-    width: 1080px;
   }
 
   .mobile_version {
     display: none;
   }
   .main_image {
+    width: 97%;
+    padding-left: 1rem;
     flex-basis: 50%;
   }
   .main_image img {
@@ -529,7 +567,7 @@ input[type="text"] {
     width: 100%;
   }
   .description {
-    flex-basis: 50%;
+    flex-basis: 76%;
   }
   #thumbnails {
     display: flex;
@@ -539,11 +577,11 @@ input[type="text"] {
 
   #thumbnails > img {
     margin-top: 2rem;
-    width: 100px;
+    width: 5.8rem;
     border-radius: 10px;
   }
   .orders {
-    margin: 2rem 0 10rem 0;
+    margin: 0 0 6rem 0;
     display: flex;
     flex-direction: row;
     gap: 10px;
@@ -559,12 +597,12 @@ input[type="text"] {
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    margin-left: 1rem;
+    padding-left: 1rem;
   }
   .large_screen li {
     flex-wrap: wrap;
     display: block;
-    padding-right: 5rem;
+    padding-right: 1rem;
     padding-bottom: 2rem;
     height: 5.5rem;
   }
@@ -576,10 +614,11 @@ input[type="text"] {
   .logo {
     width: 175px;
     padding-bottom: 4rem;
+    padding-left: 1rem;
   }
   .cart {
     padding-bottom: 4rem;
-    margin-left: 20rem;
+    margin-left: 5rem;
   }
 
   .shopping_cart {
@@ -596,14 +635,15 @@ input[type="text"] {
   }
 
   .actual_price h1 {
-    font-size: 3rem;
-    padding: 1rem 0;
+    font-size: 2rem;
+    padding: 0.5rem 0;
   }
 
   .original_price {
     text-decoration: line-through;
     color: rgb(192, 192, 192);
-    font-size: 1.7rem;
+    font-size: 1.5rem;
+    margin: 0 1rem;
   }
 
   #thumbnails > img:hover {
@@ -633,37 +673,6 @@ input[type="text"] {
     backdrop-filter: blur(10px);
   }
 
-  #modal_left {
-    position: fixed;
-    width: 15px;
-    height: 15px;
-    background-color: rgb(255, 255, 255);
-    padding: 1.5rem;
-    border-radius: 50px;
-    left: 60.3rem;
-  }
-  #modal_right {
-    position: fixed;
-    width: 15px;
-    height: 15px;
-    background-color: rgb(255, 255, 255);
-    padding: 1.5rem;
-    border-radius: 50px;
-    right: 60.3rem;
-  }
-
-  .modal_version {
-    position: relative;
-    display: flex;
-    overflow: hidden;
-    z-index: -1;
-  }
-  .modal_scrolls {
-    position: absolute;
-    top: 33rem;
-    left: 1.4rem;
-  }
-
   .close_modal {
     position: fixed;
     top: 2rem;
@@ -684,16 +693,6 @@ input[type="text"] {
     color: #ff7e1b;
   }
 
-  #rightt:hover {
-    filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
-      brightness(189%) contrast(185%);
-    cursor: pointer;
-  }
-  #leftt:hover {
-    filter: invert(0) sepia(160%) saturate(763%) hue-rotate(3220deg)
-      brightness(189%) contrast(185%);
-    cursor: pointer;
-  }
   .cart_counter {
     top: 0.4rem;
   }
@@ -703,28 +702,75 @@ input[type="text"] {
     width: 600px;
     border-radius: 20px;
   }
+}
 
-  #rightt,
-  #leftt {
-    display: block;
-    position: absolute;
-    width: 20px;
-    height: 20px;
-    background-color: rgb(255, 255, 255);
-    padding: 1.5rem;
-    border-radius: 50px;
-    z-index: 999999;
-    top: 30rem;
+@media screen and (min-width: 1080px) {
+  .app {
+    width: 1080px;
   }
 
-  #rightt {
-    right: -2rem;
+  .navbar {
+    width: 100%;
   }
-  #leftt {
-    left: -2rem;
+  .logo {
+    margin-left: 2rem;
   }
 
-  .modal_version img {
-    border-radius: 30px;
+  .large_screen li {
+    padding-right: 5.5rem;
+  }
+  .cart {
+    margin-left: 16rem;
+  }
+
+  .desktop_partition {
+    padding-top: 6rem;
+    gap: 6rem;
+  }
+
+  .main_image_container {
+    flex-basis: 80%;
+  }
+
+  .main_image {
+    width: 100%;
+    padding: 0;
+  }
+
+  #thumbnails > img {
+    width: 9.8rem;
+  }
+
+  h1 {
+    font-size: 4rem;
+  }
+
+  p {
+    font-size: 1.8rem;
+  }
+  .pre_title {
+    font-size: 2.5rem;
+  }
+
+  .actual_price h1 {
+    font-size: 3rem;
+    padding: 1rem 0;
+  }
+  h2 {
+    font-size: 2.5rem;
+    margin: 1rem;
+  }
+  .original_price {
+    font-size: 2.5rem;
+    margin: 1rem;
+  }
+
+  .orders {
+    margin: 3rem 0 6rem 0;
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
   }
 }

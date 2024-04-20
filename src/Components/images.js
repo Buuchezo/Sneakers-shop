@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { useImageObserver } from "../Components/observer";
+import React, { useState } from "react";
+
 import {
   close,
   pic,
@@ -14,91 +14,35 @@ import {
   thumbnail4,
 } from "../Components/imagescomponent";
 
-const images = [pic, pic1, pic2, pic3];
-const thumbnails = [thumbnail1, thumbnail2, thumbnail3, thumbnail4];
+const images = [
+  { url: pic, title: "first sneaker" },
+  { url: pic1, title: "second sneaker" },
+  { url: pic2, title: "third sneaker" },
+  { url: pic3, title: "forth sneaker" },
+];
+const thumbnails = [
+  { url: thumbnail1, title: "first sneaker" },
+  { url: thumbnail2, title: "second sneaker" },
+  { url: thumbnail3, title: "third sneaker" },
+  { url: thumbnail4, title: "forth sneaker" },
+];
 
-export function Images({ menge, openCart }) {
-  const elementRef = useRef(null);
-  const [elementWidth, setElementWidth] = useState(0);
-
-  useImageObserver(elementRef, setElementWidth);
-
+export function Images() {
   return (
-    <div className="main_image">
-      {/* mobile version image design/component */}
-      <ImageSlideComponent
-        menge={menge}
-        openCart={openCart}
-        elementWidth={elementWidth}
-        elementRef={elementRef}
-      />
-      {/* desktop version image design/component */}
-      <ImageDesignDesktop elementWidth={elementWidth} elementRef={elementRef} />
+    <div className="main_image_container">
+      <ImageSlideComponent imageurls={images} />
     </div>
   );
 }
 
-function Image({ image, style, elementRef }) {
-  return <img style={style} src={image} alt="shoes" ref={elementRef} />;
+function Button({ className, children }) {
+  return <div className={className}>{children}</div>;
 }
 
-function Button({ idRight, idLeft, className, onClickNext, onClickPrevious }) {
-  return (
-    <div className={className}>
-      <img onClick={onClickPrevious} id={idLeft} src={previous} alt="return" />
-      <img onClick={onClickNext} id={idRight} src={next} alt="forward" />
-    </div>
-  );
-}
-
-function ImageSlideComponent({ elementRef, elementWidth }) {
+function ImageSlideComponent({ imageurls }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-
-  function handleNext() {
-    setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }
-
-  function handlePrevious() {
-    setCurrentIndex(
-      (prevIndex) => (prevIndex - 1 + images.length) % images.length
-    );
-  }
-
-  const translation = -(elementWidth / 10) * currentIndex;
-
-  return (
-    <div className="main_component">
-      <div>
-        <div className="mobile_version">
-          {images.map((image, i) => (
-            <Image
-              image={image}
-              key={i}
-              style={{
-                transform: `translateX(${translation}rem)`,
-                transition: "all 0.4s ease-in",
-              }}
-              elementRef={elementRef}
-            />
-          ))}
-          <Button
-            idLeft="scroll_left"
-            idRight="scroll_right"
-            className="scrolls"
-            onClickNext={handleNext}
-            onClickPrevious={handlePrevious}
-          />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function ImageDesignDesktop() {
-  const [filter, setFilter] = useState(``);
-  const [destopIndex, setDesktopIndex] = useState(0);
-  const [image, setImage] = useState(images[destopIndex]);
   const [showModal, setShowmodal] = useState(false);
+
   function handleShowModal() {
     setShowmodal(true);
   }
@@ -106,114 +50,63 @@ function ImageDesignDesktop() {
     setShowmodal(false);
   }
 
-  function handleChangePicture(index) {
-    setDesktopIndex(index);
-    setImage(images[index]);
+  function handleNext() {
+    setCurrentIndex((prevIndex) => (prevIndex + 1) % imageurls.length);
   }
 
-  useEffect(
-    function () {
-      if (destopIndex) {
-        setFilter("grayscale(30%)blur(1px)");
-      }
-    },
-    [destopIndex]
-  );
+  function handlePrevious() {
+    setCurrentIndex(
+      (prevIndex) => (prevIndex - 1 + imageurls.length) % imageurls.length
+    );
+  }
+
+  function handleChangePicture(index) {
+    setCurrentIndex(index);
+  }
 
   return (
-    <div>
-      <img
-        className="desktop_version"
-        src={image}
-        alt="shoes"
-        onClick={handleShowModal}
-      />
+    <div className="main_image">
+      <Button className="RightArrow">
+        <img onClick={handleNext} src={next} alt="forward" />
+      </Button>
+      <Button className="LeftArrow">
+        <img onClick={handlePrevious} src={previous} alt="back" />
+      </Button>
+      <div className="image_slider">
+        {imageurls.map((image, i) => (
+          <img
+            className="slider_image"
+            src={image.url}
+            alt={image.title}
+            key={i}
+            onClick={handleShowModal}
+            style={{ transform: `translateX(${-100 * currentIndex}%)` }}
+          />
+        ))}
+      </div>
       <div id="thumbnails">
         {thumbnails.map((thumbnail, i) => (
           <img
-            src={thumbnail}
-            alt={`nm ${i}`}
+            src={thumbnail.url}
+            alt={thumbnail.title}
             key={i}
-            style={{ filter: destopIndex === i ? filter : "none" }}
             onClick={() => handleChangePicture(i)}
           />
         ))}
       </div>
-      {showModal && (
-        <ModalBox
-          filter={filter}
-          destopIndex={destopIndex}
-          onSetFilter={setFilter}
-          onCloseClick={handleCloseModal}
-        />
-      )}
+      <div> {showModal && <ModalBox onCloseClick={handleCloseModal} />}</div>
     </div>
   );
 }
 
 function ModalBox({ onCloseClick }) {
-  const elementRef = useRef(null);
-  const [elementWidth, setElementWidth] = useState(0);
-
-  useImageObserver(elementRef, setElementWidth);
-
-  const [index, setIndex] = useState(0);
-
-  function handleModalChangePicture(index) {
-    setIndex(index);
-  }
-
-  function handleModalNext() {
-    setIndex((prevIndex) => (prevIndex + 1) % images.length);
-  }
-
-  function handleModalPrevious() {
-    setIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
-  }
-
-  const translation = -(elementWidth / 10) * index;
-
   return (
     <div className="modal_container" onClick={onCloseClick}>
       {/* This prevents the click from bubbling up to the parent */}
       <div className="modal_content" onClick={(e) => e.stopPropagation()}>
-        <img
-          id="rightt"
-          src={next}
-          alt="close button"
-          onClick={handleModalNext}
-        />
-        <img
-          id="leftt"
-          src={previous}
-          alt="close button"
-          onClick={handleModalPrevious}
-        />
-        <div className="modal_version">
-          {images.map((image, i) => (
-            <Image
-              image={image}
-              key={i}
-              style={{
-                transform: `translateX(${translation}rem)`,
-                transition: "all 0.5s ease-in",
-              }}
-              elementRef={elementRef}
-            />
-          ))}
-        </div>
-        <div id="thumbnails">
-          {thumbnails.map((img, i) => (
-            <img
-              src={img}
-              alt={i}
-              onClick={() => handleModalChangePicture(i)}
-              key={i}
-            />
-          ))}
-        </div>
+        <ImageSlideComponent imageurls={images} />
       </div>
-      {/* onClick={onCloseClick} */}
+
       <div className="close_modal">
         <img
           id="close_modal"

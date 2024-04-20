@@ -123,7 +123,7 @@ function ShoppingCartFull({ menge, onSetMenge, onSetValue }) {
       ) : (
         <button className="checkout_btn" onClick={handleAdjust}>
           {`${value}
-          ${count} ${value > 1 ? "Items" : "Item"}`}
+          ${count} ${count > 1 ? "Items" : "Item"}`}
         </button>
       )}
     </div>
